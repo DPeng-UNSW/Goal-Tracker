@@ -1,0 +1,21 @@
+{
+    "name": "Goal Manager",
+    "version": "0.01",
+    "description": "An extension to help you achieve your goals",
+    "permissions": ["activeTab", "declarativeContent", "storage"],
+    "background": {
+     "scripts": ["background.js"],
+     "persistent": false
+   },
+   "page_action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+          "16": "images/icon.png"
+      }
+    },
+    "icons": {
+          "16": "images/icon.png"
+    },
+    "options_page": "options.html",
+    "manifest_version": 2
+  }
