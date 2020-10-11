@@ -1,0 +1,24 @@
+{
+    "name": "Goal Manager",
+    "version": "0.02",
+    "description": "An extension to help you achieve your goals",
+    "permissions": ["tabs", "activeTab", "declarativeContent", "storage"],
+    "background": {
+     "scripts": ["background.js", "createbutton.js"],
+     "persistent": false
+   },
+   "page_action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+          "16": "images/icon.png"
+      }
+    },
+    "icons": {
+          "16": "images/icon.png"
+    },
+    "options_page": "options.html",
+    "chrome_url_overrides" : {
+    "newtab": "goaltracker.html"
+    },
+    "manifest_version": 2
+  }
