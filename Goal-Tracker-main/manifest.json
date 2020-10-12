@@ -4,8 +4,8 @@
     "description": "An extension to help you achieve your goals",
     "permissions": ["tabs", "activeTab", "declarativeContent", "storage"],
     "background": {
-     "scripts": ["background.js", "createbutton.js"],
-     "persistent": false
+     "scripts": ["background.js", "creategoal.js"],
+     "persistent": true
    },
    "page_action": {
       "default_popup": "popup.html",
@@ -20,5 +20,8 @@
     "chrome_url_overrides" : {
     "newtab": "goaltracker.html"
     },
+    "web_accessible_resources": [
+    "editedgoal.html"
+  ],
     "manifest_version": 2
   }

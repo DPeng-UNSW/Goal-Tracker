@@ -3,15 +3,22 @@
   <head>
       <style>
       h1 {
-          color: pink;
+          color: brown;
           text-align: center;
+          font-style: italic;
+          font-style: oblique;
+          font-size: 36px;
+          font-family: "Courier New";
+          margin-left: 300px;
+          margin-right: 300px;
+          margin-bottom: 0px;
       }
       .shadow {
           box-shadow: 0px 3px 5px 2px grey;
       }
       div.goal {
-          width: 600px;
-          padding: 0px;
+          width: 650px;
+          padding: 0px 0px 0px 10px;
           margin-left: auto;
           margin-right: auto;
           background-color: white;
@@ -21,40 +28,105 @@
           margin-top: 10px;
           margin-bottom: 10px;
       }
-      button.goal {
+      input.goal {
           width: 600px;
-          padding: 10px 15px;
+          height: 52px;
+          padding: 0;
           margin-left: auto;
           margin-right: auto;
           background-color: white;
-          border-radius: 5px;
+          border: none;
           text-align: left;
           font-size: 24px;
           border-color: white;
+          display: inline-block;
+          cursor: pointer;
+      }
+      button.visibility {
+          visibility: hidden;
+      }
+      button:active {
+          border: none;
       }
       button.creator {
-          width: 60px;
-          padding: 10px 15px;
-          background-color: white;
-          border-radius: 5px;
-          text-align: left;
-          font-size: 10px;
-          border-color: white;
+          text-align: center;
+          width:200px;
+          font-size: 28px;
+          color: darkgrey;
+          background-color: inherit;
+          border: none;
+          cursor: pointer;
+      }
+      .btn-group button {
+          float: left; /* Float the buttons side by side */
+      }
+      /* Clear floats (clearfix hack) */
+      .btn-group:after {
+          content: "";
+          clear: both;
+          display: table;
+      }
+      button.delete {
+          width: 50px;
+          height: 52px;
+          text-align: center;
+          border: none;
+          font-size: 24px;
           float: right;
-          position: fixed;
-          right: 300px;
-          bottom: 645px;
+          display: inline;
+          padding: 12px 0px;
+          border-top-right-radius: 5px;
+          border-bottom-right-radius: 5px;
+          background-image: url("images/delete.png");
+          cursor: pointer;
+      }
+      button.confirm {
+          width: 100px;
+          height: 30px;
+          text-align: center;
+          border: none;
+          font-size: 12px;
+          display: inline;
+          padding: 0px;
+          background-color: Indianred;
+          border-radius: 10px;
       }
       body {
           background-color: pink;
+          transition: 2s;
+      }
+      .logo {
+          background: = none;
+          border-color: white;
+          border-radius: 500px;
+          padding-left: 25%
+      }
+      .sidenav {
+          height: 100%; /* Full-height: remove this if you want "auto" height */
+          width: 200px; /* Set the width of the sidebar */
+          position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+          z-index: 1; /* Stay on top */
+          top: 0; /* Stay at the top */
+          left: 0;
+          background-color: #3b3b3b; /* Black */
+          overflow-x: hidden; /* Disable horizontal scroll */
+          padding-top: 20px;
+      }
+      form.goaledit {
+          box-sizing: border-box;
+          z-index: 2;
       }
       </style>
   </head>
   <body>
-      <h1> Goal Tracker! </h1>
-      <button id = "creator" class = "creator shadow">
-          Make Goal!
-      </button>
-      <script src="createbutton.js"></script>
+      <h1> "Improve by 0.3% a day and you'll be twice the person in a year" - Someone Cool </h1>
+      <div class = "sidenav">
+          <img src = "Logo/logo.png" class = "logo"> </img>
+          <button id = "creator" class = "creator">
+              Make Goal!
+          </button>
+              <input class = "goaledit" type="text" id="fname" placeholder="Your Goal! ...">
+      </div>
+      <script src="creategoal.js"></script>
   </body>
 </html>
