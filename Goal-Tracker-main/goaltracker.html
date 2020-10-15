@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
+      <title> Goal Tracker! </title>
       <style>
+      button {
+        outline: none;
+      }
       h1 {
-          color: brown;
+          color: black;
           text-align: center;
           font-style: italic;
           font-style: oblique;
@@ -21,20 +25,18 @@
           padding: 0px 0px 0px 10px;
           margin-left: auto;
           margin-right: auto;
-          background-color: white;
           border-radius: 5px;
           text-align: left;
           font-size: 24px;
           margin-top: 10px;
           margin-bottom: 10px;
       }
-      input.goal {
+      button.goal {
           width: 600px;
           height: 52px;
           padding: 0;
           margin-left: auto;
           margin-right: auto;
-          background-color: white;
           border: none;
           text-align: left;
           font-size: 24px;
@@ -42,7 +44,13 @@
           display: inline-block;
           cursor: pointer;
       }
-      button.visibility {
+      .brown {
+          background-color: brown;
+      }
+      .white {
+          background-color: white;
+      }
+      .visibility {
           visibility: hidden;
       }
       button:active {
@@ -116,16 +124,26 @@
           box-sizing: border-box;
           z-index: 2;
       }
+      table.subgoal {
+        width: 500px;
+        height: 30px
+      }
       </style>
   </head>
   <body>
-      <h1> "Improve by 0.3% a day and you'll be twice the person in a year" - Someone Cool </h1>
+      <h1>
+        <div id = "Quote"></div>
+      </h1>
+      <script src = "quotes.js"> </script>
       <div class = "sidenav">
           <img src = "Logo/logo.png" class = "logo"> </img>
           <button id = "creator" class = "creator">
               Make Goal!
           </button>
-              <input class = "goaledit" type="text" id="fname" placeholder="Your Goal! ...">
+      </div>
+      <div class = "white button-grp goal shadow" style = "display:none;">
+        <button class = "goal white"> Button </button>
+        <button class = "delete"> </button>
       </div>
       <script src="creategoal.js"></script>
   </body>

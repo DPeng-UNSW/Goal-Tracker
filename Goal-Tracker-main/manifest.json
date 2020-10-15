@@ -4,7 +4,7 @@
     "description": "An extension to help you achieve your goals",
     "permissions": ["tabs", "activeTab", "declarativeContent", "storage"],
     "background": {
-     "scripts": ["background.js", "creategoal.js"],
+     "scripts": ["background.js", "creategoal.js", "quotes.js"],
      "persistent": true
    },
    "page_action": {
