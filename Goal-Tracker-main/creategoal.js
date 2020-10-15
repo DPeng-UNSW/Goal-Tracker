@@ -16,11 +16,15 @@ function newList(goal_name) {
 }
 
 function addNode(head, goal_name) {
-    const newNode = new GoalNode(goal_name);
-    var last = lastNode(head)
-    last.next = newNode;
-    newNode.previous = last;
-    return head;
+    if (findNode(head, goal_name) == false) {
+        const newNode = new GoalNode(goal_name);
+        var last = lastNode(head)
+        last.next = newNode;
+        newNode.previous = last;
+        return newNode;
+    } else {
+        return false;
+    }
 }
 
 function lastNode(head) {
@@ -59,24 +63,11 @@ function reveal(menu) {
 }
 
 function displayNode(node) {
-
-    //button class set
-    var btn = document.createElement("button");
-    btn.classList.add('goal', 'white');
-    btn.onclick = function(colourchange) {
-        div.classList.toggle("brown");
-        btn.classList.toggle("brown");
-        div.classList.toggle("white");
-        btn.classList.toggle("white");
-    }
-    btn.innerHTML = node.html;
-    btn.setAttribute("id", node.id);
-
     //delete_button class set
     var xbtn = document.createElement("button");
     xbtn.classList.add('delete');
     xbtn.onclick = function(delete_parent) {
-        xbtn.parentNode.remove();
+        xbtn.parentNode.parentNode.remove();
         removeNode(node);
     };
 
@@ -93,26 +84,57 @@ function displayNode(node) {
     edit.classList.add("edit");
     edit.onclick = function(edit) {
         var newhtml = window.prompt("What is your Goal?", "Goal...");
-        changeHTML(node, newhtml);
+        if (findNode(head, newhtml) == false) {
+            changeHTML(node, newhtml);
+        } else {
+             alert("This goal has already been entered, Please enter a different goal");
+        }
     }
 
     //complete button class set
     var complete = document.createElement("button");
     complete.classList.add("complete");
     complete.onclick = function(complete) {
-      btn.setAttribute("style", "text-decoration: line-through;");
+      btn.classList.toggle("grey-text");
+      btn.classList.toggle("strike-through");
+      console.log("sucess");
     }
+
+    //button class set
+    var btn = document.createElement("button");
+    btn.classList.add('goal', 'white');
+    edit.classList.toggle("opacity");
+    complete.classList.toggle("opacity");
+    subgoalAdd.classList.toggle("opacity");
+    btn.onclick = function(colourchange) {
+        div.classList.toggle("clickcolour");
+        btn.classList.toggle("clickcolour");
+        div.classList.toggle("white");
+        btn.classList.toggle("white");
+        edit.classList.toggle("opacity");
+        complete.classList.toggle("opacity");
+        subgoalAdd.classList.toggle("opacity");
+    }
+    btn.innerHTML = node.html;
+    btn.setAttribute("id", node.id);
 
     //div class set
     var div = document.createElement("div");
     div.classList.add('white', 'btn-group', 'goal', 'shadow');
-    //div.addEventListener("mouseover", reveal(menu[subgoal, edit, complete]));
+
+    var menu = document.createElement("div");
+    menu.classList.add("menu");
 
     //Appending Children of the div
-    div.appendChild(btn);
+    menu.appendChild(div);
     div.appendChild(xbtn);
+    div.appendChild(btn);
+    menu.appendChild(complete);
+    menu.appendChild(edit);
+    menu.appendChild(subgoalAdd);
+
     //Adding goal to the document
-    document.body.appendChild(div);
+    document.body.appendChild(menu);
 }
 function findNode(head, id) {
     for (current = head; current != null; current = current.next) {
@@ -120,8 +142,7 @@ function findNode(head, id) {
             return current;
         }
     }
-    console.log("There is no node with this ID");
-    //console.log("There is no node with the given ID");
+    return false;
 }
 function changeHTML(node, newhtml) {
     let btn = document.getElementById(node.html);
@@ -133,7 +154,10 @@ function changeHTML(node, newhtml) {
 var head = newList("BEGINNING OF LIST");
 button.onclick = function(createGoal) {
       let goal_name = window.prompt("What is your Goal?", "Goal...")
-      addNode(head, goal_name);
-      displayNode(lastNode(head));
+      if (findNode(head, goal_name) == false) {
+          displayNode(addNode(head, goal_name));
+      } else {
+          alert("This goal has already been entered, Please enter a new goal")
+      }
       consoleList(head);
 }

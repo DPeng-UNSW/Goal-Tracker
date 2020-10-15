@@ -13,39 +13,57 @@
           font-style: oblique;
           font-size: 36px;
           font-family: "Courier New";
-          margin-left: 300px;
-          margin-right: 300px;
+          margin-left: 15%;
+          margin-right: 5%;
           margin-bottom: 0px;
       }
       .shadow {
           box-shadow: 0px 3px 5px 2px grey;
       }
+      .opacity {
+          opacity: 0;
+      }
       div.goal {
-          width: 650px;
+          width: 60%;
           padding: 0px 0px 0px 10px;
-          margin-left: auto;
-          margin-right: auto;
+          float:right;
           border-radius: 5px;
           text-align: left;
-          font-size: 24px;
-          margin-top: 10px;
-          margin-bottom: 10px;
+          display: inline;
+          transition: background-color 1s;
+      }
+      div.menu {
+          width: 80%;
+          height: 52px;
+          padding-top: 1%;
+          background: none;
+          border: none;
+          margin-left: 2.5%;
+          margin-right: 5%;
       }
       button.goal {
-          width: 600px;
+          width: 92.5%;
           height: 52px;
           padding: 0;
           margin-left: auto;
           margin-right: auto;
           border: none;
+          float: right;
           text-align: left;
           font-size: 24px;
           border-color: white;
-          display: inline-block;
+          display: inline;
           cursor: pointer;
+          transition: background-color 1s;
       }
-      .brown {
-          background-color: brown;
+      .strike-through {
+          text-decoration: line-through;
+      }
+      .grey-text {
+          color: grey;
+      }
+      .clickcolour {
+          background-color: #f044ff;
       }
       .white {
           background-color: white;
@@ -58,15 +76,15 @@
       }
       button.creator {
           text-align: center;
-          width:200px;
-          font-size: 28px;
+          width:100%;
+          font-size: 200%;
           color: darkgrey;
           background-color: inherit;
           border: none;
           cursor: pointer;
       }
       .btn-group button {
-          float: left; /* Float the buttons side by side */
+          float: right; /* Float the buttons side by side */
       }
       /* Clear floats (clearfix hack) */
       .btn-group:after {
@@ -75,7 +93,7 @@
           display: table;
       }
       button.delete {
-          width: 50px;
+          width: 7.5%;
           height: 52px;
           text-align: center;
           border: none;
@@ -88,16 +106,58 @@
           background-image: url("images/delete.png");
           cursor: pointer;
       }
-      button.confirm {
-          width: 100px;
+      button.edit {
+          width: 30px;
           height: 30px;
           text-align: center;
           border: none;
-          font-size: 12px;
+          font-size: 24px;
+          float: left;
           display: inline;
-          padding: 0px;
-          background-color: Indianred;
-          border-radius: 10px;
+          position: relative;
+          left: 28%;
+          top: 10px;
+          border-radius: 5px;
+          background-image: url("images/edit.png");
+          cursor: pointer;
+          box-shadow: 0px 3px 5px 2px grey;
+          transition: opacity 0.5s;
+      }
+      button.complete {
+          width: 30px;
+          height: 30px;
+          text-align: center;
+          border: none;
+          font-size: 24px;
+          float: left;
+          display: inline;
+          position: relative;
+          left: 26%;
+          top: 10px;
+          padding: 12px 0px;
+          border-radius: 5px;
+          background-image: url("images/complete.png");
+          cursor: pointer;
+          box-shadow: 0px 3px 5px 2px grey;
+          transition: opacity 0.5s;
+      }
+      button.subgoalCreator {
+          width: 30px;
+          height: 30px;
+          text-align: center;
+          border: none;
+          font-size: 24px;
+          float: left;
+          display: inline;
+          position: relative;
+          left: 30%;
+          top: 10px;
+          padding: 12px 0px;
+          border-radius: 5px;
+          background-image: url("images/subgoalButton.png");
+          cursor: pointer;
+          box-shadow: 0px 3px 5px 2px grey;
+          transition: opacity 0.5s;
       }
       body {
           background-color: pink;
@@ -107,11 +167,12 @@
           background: = none;
           border-color: white;
           border-radius: 500px;
-          padding-left: 25%
+          padding-left: 25%;
+          width: 50%;
       }
       .sidenav {
           height: 100%; /* Full-height: remove this if you want "auto" height */
-          width: 200px; /* Set the width of the sidebar */
+          width: 15%; /* Set the width of the sidebar */
           position: fixed; /* Fixed Sidebar (stay in place on scroll) */
           z-index: 1; /* Stay on top */
           top: 0; /* Stay at the top */
@@ -120,14 +181,7 @@
           overflow-x: hidden; /* Disable horizontal scroll */
           padding-top: 20px;
       }
-      form.goaledit {
-          box-sizing: border-box;
-          z-index: 2;
-      }
-      table.subgoal {
-        width: 500px;
-        height: 30px
-      }
+
       </style>
   </head>
   <body>
@@ -143,7 +197,7 @@
       </div>
       <div class = "white button-grp goal shadow" style = "display:none;">
         <button class = "goal white"> Button </button>
-        <button class = "delete"> </button>
+        <button class = "delete"></button>
       </div>
       <script src="creategoal.js"></script>
   </body>
