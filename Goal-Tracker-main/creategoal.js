@@ -16,15 +16,11 @@ function newList(goal_name) {
 }
 
 function addNode(head, goal_name) {
-    if (findNode(head, goal_name) == false) {
-        const newNode = new GoalNode(goal_name);
-        var last = lastNode(head)
-        last.next = newNode;
-        newNode.previous = last;
-        return newNode;
-    } else {
-        return false;
-    }
+    const newNode = new GoalNode(goal_name);
+    var last = lastNode(head)
+    last.next = newNode;
+    newNode.previous = last;
+    return newNode;
 }
 
 function lastNode(head) {
@@ -63,12 +59,20 @@ function reveal(menu) {
 }
 
 function displayNode(node) {
+    //div class set
+    var div = document.createElement("div");
+    div.classList.add('white', 'btn-group', 'goal', 'shadow');
+
+    var menu = document.createElement("div");
+    menu.classList.add("menu");
+
     //delete_button class set
     var xbtn = document.createElement("button");
     xbtn.classList.add('delete');
     xbtn.onclick = function(delete_parent) {
         xbtn.parentNode.parentNode.remove();
         removeNode(node);
+        saveGoals(head);
     };
 
     //subgoal creator class set
@@ -77,19 +81,32 @@ function displayNode(node) {
     subgoalAdd.onclick = function(addSubGoal) {
         var subgoal = document.createElement("input");
         subgoal.classList.add("subgoal");
+        menu.appendChild(subgoal);
     };
 
     //edit button class set
     var edit = document.createElement("button");
     edit.classList.add("edit");
+    var goalInput = document.createElement("input");
+    goalInput.classList.add("goal");
     edit.onclick = function(edit) {
-        var newhtml = window.prompt("What is your Goal?", "Goal...");
-        if (findNode(head, newhtml) == false) {
-            changeHTML(node, newhtml);
-        } else {
-             alert("This goal has already been entered, Please enter a different goal");
-        }
+        goalInput.value = node.html;
+        btn.replaceWith(goalInput);
+        goalInput.focus();
     }
+    goalInput.addEventListener("keyup", function() {
+        if (event.keyCode === 13) {
+            btn.innerHTML = goalInput.value;
+            node.html = goalInput.value;
+            goalInput.replaceWith(btn);
+        };
+    });
+    goalInput.addEventListener("blur", function() {
+        btn.innerHTML = goalInput.value;
+        node.html = goalInput.value;
+        goalInput.replaceWith(btn);
+    });
+
 
     //complete button class set
     var complete = document.createElement("button");
@@ -97,7 +114,6 @@ function displayNode(node) {
     complete.onclick = function(complete) {
       btn.classList.toggle("grey-text");
       btn.classList.toggle("strike-through");
-      console.log("sucess");
     }
 
     //button class set
@@ -108,7 +124,6 @@ function displayNode(node) {
     subgoalAdd.classList.toggle("opacity");
     btn.onclick = function(colourchange) {
         div.classList.toggle("clickcolour");
-        btn.classList.toggle("clickcolour");
         div.classList.toggle("white");
         btn.classList.toggle("white");
         edit.classList.toggle("opacity");
@@ -117,13 +132,6 @@ function displayNode(node) {
     }
     btn.innerHTML = node.html;
     btn.setAttribute("id", node.id);
-
-    //div class set
-    var div = document.createElement("div");
-    div.classList.add('white', 'btn-group', 'goal', 'shadow');
-
-    var menu = document.createElement("div");
-    menu.classList.add("menu");
 
     //Appending Children of the div
     menu.appendChild(div);
@@ -136,6 +144,7 @@ function displayNode(node) {
     //Adding goal to the document
     document.body.appendChild(menu);
 }
+
 function findNode(head, id) {
     for (current = head; current != null; current = current.next) {
         if(current.html == id) {
@@ -144,20 +153,35 @@ function findNode(head, id) {
     }
     return false;
 }
-function changeHTML(node, newhtml) {
-    let btn = document.getElementById(node.html);
-    btn.innerHTML = newhtml;
-    node.html = newhtml;
-    btn.setAttribute("id", newhtml);
-}
+
+function saveGoals(head) {
+    var i = 1;
+    for(var current = head;  current != null; current = current.next) {
+        localStorage.setItem("goal" + i, current.html);
+        localStorage.setItem("NumberOfGoals", i);
+        i++;
+    }
+
+};
 
 var head = newList("BEGINNING OF LIST");
 button.onclick = function(createGoal) {
       let goal_name = window.prompt("What is your Goal?", "Goal...")
-      if (findNode(head, goal_name) == false) {
-          displayNode(addNode(head, goal_name));
-      } else {
-          alert("This goal has already been entered, Please enter a new goal")
+      if (goal_name.length > 35) {
+          alert("This goal is too long, Put goal details inside of the subgoals :)");
+          return;
       }
+      displayNode(addNode(head, goal_name));
+      saveGoals(head);
+      console.log(localStorage.getItem("NumberOfGoals"));
       consoleList(head);
+}
+
+window.onload =  function(restorePage) {
+    console.log(localStorage.getItem("NumberOfGoals"));
+    for(var j = 1;  j < localStorage.getItem("NumberOfGoals"); j++) {
+        k = j+1;
+        var goalhtml = localStorage.getItem("goal" + k);
+        displayNode(addNode(head, goalhtml));
+    }
 }
