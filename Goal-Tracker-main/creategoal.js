@@ -99,12 +99,14 @@ function displayNode(node) {
             btn.innerHTML = goalInput.value;
             node.html = goalInput.value;
             goalInput.replaceWith(btn);
+            saveGoals(head);
         };
     });
     goalInput.addEventListener("blur", function() {
         btn.innerHTML = goalInput.value;
         node.html = goalInput.value;
         goalInput.replaceWith(btn);
+        saveGoals(head);
     });
 
 
