@@ -7,7 +7,9 @@
         outline: none;
       }
       h1 {
-          color: black;
+          color: white;
+          text-emphasis: black;
+          text-shadow: 2px 2px black;
           text-align: center;
           font-style: italic;
           font-style: oblique;
@@ -16,9 +18,10 @@
           margin-left: 15%;
           margin-right: 5%;
           margin-bottom: 0px;
+          user-select: none;
       }
       .shadow {
-          box-shadow: 0px 3px 5px 2px grey;
+          box-shadow: 0px 3px 5px 1px black;
       }
       .opacity {
           opacity: 0;
@@ -30,11 +33,10 @@
           border-radius: 5px;
           text-align: left;
           display: inline;
-          transition: background-color 1s;
+          transition: background-color 0.5s;
       }
       div.menu {
           width: 80%;
-          height: 52px;
           padding-top: 1%;
           background: none;
           border: none;
@@ -54,7 +56,7 @@
           border-color: white;
           display: inline;
           cursor: pointer;
-          transition: background-color 1s;
+          transition: background-color 0.5s;
       }
       input.goal {
           width: 90.72%;
@@ -71,26 +73,31 @@
           cursor: pointer;
           outline-color: indianred;
           outline-offset: -2.5px;
-
-          transition: background-color 1s;
+          transition: background-color 0.5s;
       }
-      input.subgoal {
+      button.subgoal {
           width: 45%;
           height: 36px;
           padding-left: 10px;
+          margin-top: 10px;
           margin-left: auto;
           margin-right: 10%;
-          border: none;
+          border: black;
+          border-radius: 5px;
+          box-shadow: 0px 3px 5px 1px black;
           float: right;
           text-align: left;
           font-size: 200%;
           border-color: white;
           display: inline;
           position: relative;
-          top: 30px;
-          left: 1%;
+          top: 10px;
+          left: 2%;
           cursor: pointer;
-          transition: background-color 1s;
+          transition: background-color 0.5s;
+      }
+      .pointer-events-off{
+          pointer-events: none;
       }
       .strike-through {
           text-decoration: line-through;
@@ -119,6 +126,7 @@
           background-color: inherit;
           border: none;
           cursor: pointer;
+          user-select: none;
       }
       .btn-group button {
           float: right; /* Float the buttons side by side */
@@ -130,7 +138,7 @@
           display: table;
       }
       button.delete {
-          width: 7.5%;
+          width: 50px;
           height: 52px;
           text-align: center;
           border: none;
@@ -150,15 +158,14 @@
           border: none;
           font-size: 24px;
           float: left;
-          display: inline;
           position: relative;
           left: 28%;
           top: 10px;
           border-radius: 5px;
           background-image: url("images/edit.png");
           cursor: pointer;
-          box-shadow: 0px 3px 5px 2px grey;
-          transition: opacity 0.5s;
+          box-shadow: 0px 3px 5px 1px black;
+          transition: opacity 0.3s;
       }
       button.complete {
           width: 30px;
@@ -167,7 +174,6 @@
           border: none;
           font-size: 24px;
           float: left;
-          display: inline;
           position: relative;
           left: 26%;
           top: 10px;
@@ -175,8 +181,8 @@
           border-radius: 5px;
           background-image: url("images/complete.png");
           cursor: pointer;
-          box-shadow: 0px 3px 5px 2px grey;
-          transition: opacity 0.5s;
+          box-shadow: 0px 3px 5px 1px black;
+          transition: opacity 0.3s;
       }
       button.subgoalCreator {
           width: 30px;
@@ -185,7 +191,6 @@
           border: none;
           font-size: 24px;
           float: left;
-          display: inline;
           position: relative;
           left: 30%;
           top: 10px;
@@ -193,12 +198,14 @@
           border-radius: 5px;
           background-image: url("images/subgoalButton.png");
           cursor: pointer;
-          box-shadow: 0px 3px 5px 2px grey;
-          transition: opacity 0.5s;
+          box-shadow: 0px 3px 5px 1px black;
+          transition: opacity 0.3s;
       }
       body {
-          background-color: pink;
-          transition: 2s;
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-color: white;
+          background-attachment: fixed;
       }
       .logo {
           background: = none;
@@ -206,6 +213,7 @@
           border-radius: 500px;
           padding-left: 25%;
           width: 50%;
+          user-select: none;
       }
       .sidenav {
           height: 100%; /* Full-height: remove this if you want "auto" height */
@@ -214,9 +222,17 @@
           z-index: 1; /* Stay on top */
           top: 0; /* Stay at the top */
           left: 0;
+          border-top-right-radius: 10px;
+          border-bottom-right-radius: 10px;
           background-color: white; /* Black */
           overflow-x: hidden; /* Disable horizontal scroll */
           padding-top: 20px;
+          opacity: 0.6;
+          transition: opacity 0.5s;
+      }
+      .sidenav:hover {
+          opacity: 1;
+
       }
 
       </style>

@@ -1,6 +1,7 @@
 {
     "name": "Goal Manager",
-    "version": "0.02",
+    "version": "0.5",
+    "name": "Peng Peng Projects",
     "description": "An extension to help you achieve your goals",
     "permissions": ["tabs", "activeTab", "declarativeContent", "storage"],
     "background": {

@@ -7,6 +7,7 @@ class GoalNode {
           this.next = null;
           this.previous = null;
           this.id = goal_name;
+          this.complete = 0;
     }
 }
 
@@ -45,6 +46,15 @@ function removeNode(node) {
     node = null;
 }
 
+function removeList(head) {
+    var list = document.getElementsByClassName("delete");
+    for(var i = list.length - 1; i > 0; i--) {
+        console.log(list[i]);
+        list[i].click();
+    }
+};
+
+
 function consoleList(head) {
     for(current = head; current != null; current = current.next) {
       console.log("%s ->", current.html);
@@ -52,19 +62,17 @@ function consoleList(head) {
     console.log("//////////NULL////////////")
 }
 
-function reveal(menu) {
-    for(var i = 0; i < menu.length; i++) {
-        menu[i].setAttribute("style", "display: inline-block;");
-    }
-}
 
-function displayNode(node) {
+function displayNode(node, compl) {
     //div class set
     var div = document.createElement("div");
     div.classList.add('white', 'btn-group', 'goal', 'shadow');
 
     var menu = document.createElement("div");
     menu.classList.add("menu");
+    menu.setAttribute("style", "height: 52px;");
+    menu.setAttribute("height", "52");
+    menu.setAttribute("Subgoal", "0");
 
     //delete_button class set
     var xbtn = document.createElement("button");
@@ -77,29 +85,41 @@ function displayNode(node) {
 
     //subgoal creator class set
     var subgoalAdd = document.createElement("button");
-    subgoalAdd.classList.add('subgoalCreator');
+    subgoalAdd.classList.add('subgoalCreator', "pointer-events-off");
     subgoalAdd.onclick = function(addSubGoal) {
-        var subgoal = document.createElement("input");
+        var subgoal = document.createElement("button");
         subgoal.classList.add("subgoal");
         menu.appendChild(subgoal);
+        if (menu.getAttribute("Subgoal") == "1") {
+            var new_height = parseInt(menu.getAttribute("height")) + 46;
+        } else {
+            var new_height = parseInt(menu.getAttribute("height")) + 55;
+        }
+        menu.setAttribute("style", "height:" + new_height + "px;");
+        menu.setAttribute("height", new_height);
+        menu.setAttribute("Subgoal", "1");
+        subgoal.focus();
     };
 
     //edit button class set
     var edit = document.createElement("button");
-    edit.classList.add("edit");
+    edit.classList.add("edit", "pointer-events-off");
     var goalInput = document.createElement("input");
     goalInput.classList.add("goal");
+    goalInput.setAttribute("maxlength", "40");
     edit.onclick = function(edit) {
         goalInput.value = node.html;
         btn.replaceWith(goalInput);
         goalInput.focus();
     }
+
     goalInput.addEventListener("keyup", function() {
         if (event.keyCode === 13) {
             btn.innerHTML = goalInput.value;
             node.html = goalInput.value;
             goalInput.replaceWith(btn);
             saveGoals(head);
+            window.focus();
         };
     });
     goalInput.addEventListener("blur", function() {
@@ -109,13 +129,18 @@ function displayNode(node) {
         saveGoals(head);
     });
 
-
     //complete button class set
     var complete = document.createElement("button");
-    complete.classList.add("complete");
+    complete.classList.add("complete", "pointer-events-off");
     complete.onclick = function(complete) {
-      btn.classList.toggle("grey-text");
-      btn.classList.toggle("strike-through");
+        btn.classList.toggle("grey-text");
+        btn.classList.toggle("strike-through");
+        if (node.complete == 1) {
+            node.complete = 0
+        } else {
+            node.complete = 1;
+        }
+        saveGoals(head);
     }
 
     //button class set
@@ -124,16 +149,44 @@ function displayNode(node) {
     edit.classList.toggle("opacity");
     complete.classList.toggle("opacity");
     subgoalAdd.classList.toggle("opacity");
+    var can_click = true;
     btn.onclick = function(colourchange) {
-        div.classList.toggle("clickcolour");
-        div.classList.toggle("white");
-        btn.classList.toggle("white");
-        edit.classList.toggle("opacity");
-        complete.classList.toggle("opacity");
-        subgoalAdd.classList.toggle("opacity");
+        if(can_click == true) {
+            div.classList.toggle("clickcolour");
+            div.classList.toggle("white");
+            btn.classList.toggle("white");
+            edit.classList.toggle("opacity");
+            complete.classList.toggle("opacity");
+            subgoalAdd.classList.toggle("opacity");
+            edit.classList.toggle("pointer-events-off");
+            complete.classList.toggle("pointer-events-off");
+            subgoalAdd.classList.toggle("pointer-events-off");
+            can_click = false;
+            setTimeout(function() {can_click = true }, 300);
+        }
     }
+
+    btn.addEventListener("blur", function() {
+        div.classList.remove("clickcolour");
+        div.classList.add("white");
+        btn.classList.add("white");
+        edit.classList.add("opacity");
+        complete.classList.add("opacity");
+        subgoalAdd.classList.add("opacity");
+        setTimeout(function(removeextra) {
+        edit.classList.add("pointer-events-off");
+        complete.classList.add("pointer-events-off");
+        subgoalAdd.classList.add("pointer-events-off");}, 100);
+
+    });
     btn.innerHTML = node.html;
     btn.setAttribute("id", node.id);
+    if (compl == 1) {
+        btn.classList.toggle("grey-text");
+        btn.classList.toggle("strike-through");
+        node.complete = 1;
+    }
+
 
     //Appending Children of the div
     menu.appendChild(div);
@@ -144,7 +197,8 @@ function displayNode(node) {
     menu.appendChild(subgoalAdd);
 
     //Adding goal to the document
-    document.body.appendChild(menu);
+    var field = document.body.appendChild(menu);
+    return field;
 }
 
 function findNode(head, id) {
@@ -161,6 +215,7 @@ function saveGoals(head) {
     for(var current = head;  current != null; current = current.next) {
         localStorage.setItem("goal" + i, current.html);
         localStorage.setItem("NumberOfGoals", i);
+        localStorage.setItem("complete" + i, current.complete);
         i++;
     }
 
@@ -168,22 +223,24 @@ function saveGoals(head) {
 
 var head = newList("BEGINNING OF LIST");
 button.onclick = function(createGoal) {
-      let goal_name = window.prompt("What is your Goal?", "Goal...")
-      if (goal_name.length > 35) {
-          alert("This goal is too long, Put goal details inside of the subgoals :)");
-          return;
-      }
-      displayNode(addNode(head, goal_name));
+      displayNode(addNode(head, "New Goal..."), 0);
       saveGoals(head);
-      console.log(localStorage.getItem("NumberOfGoals"));
       consoleList(head);
 }
 
 window.onload =  function(restorePage) {
-    console.log(localStorage.getItem("NumberOfGoals"));
     for(var j = 1;  j < localStorage.getItem("NumberOfGoals"); j++) {
         k = j+1;
         var goalhtml = localStorage.getItem("goal" + k);
-        displayNode(addNode(head, goalhtml));
+        var complete = localStorage.getItem("complete" + k);
+        displayNode(addNode(head, goalhtml), complete);
+    }
+    window.focus();
+}
+
+window.onblur = function(refreshing) {
+    window.onfocus = function(refresh) {
+        console.log("success");
+        window.location.reload();
     }
 }
