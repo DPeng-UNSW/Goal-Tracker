@@ -176,7 +176,7 @@ function displayNode(node, compl) {
         setTimeout(function(removeextra) {
         edit.classList.add("pointer-events-off");
         complete.classList.add("pointer-events-off");
-        subgoalAdd.classList.add("pointer-events-off");}, 100);
+        subgoalAdd.classList.add("pointer-events-off");}, 300);
 
     });
     btn.innerHTML = node.html;

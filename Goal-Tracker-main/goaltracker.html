@@ -128,6 +128,17 @@
           cursor: pointer;
           user-select: none;
       }
+      button.backgroundChange {
+          text-align: center;
+          padding-top: 10px;
+          width:100%;
+          font-size: 180%;
+          color: black;
+          background-color: inherit;
+          border: none;
+          cursor: pointer;
+          user-select: none;
+      }
       .btn-group button {
           float: right; /* Float the buttons side by side */
       }
@@ -232,9 +243,7 @@
       }
       .sidenav:hover {
           opacity: 1;
-
       }
-
       </style>
   </head>
   <body>
@@ -246,6 +255,9 @@
           <img src = "Logo/logo.png" class = "logo"> </img>
           <button id = "creator" class = "creator">
               Make Goal!
+          </button>
+          <button id = "backgroundChange" class = "backgroundChange">
+              Change Background
           </button>
       </div>
       <div class = "white button-grp goal shadow" style = "display:none;">
